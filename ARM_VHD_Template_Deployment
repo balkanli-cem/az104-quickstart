@@ -1,0 +1,24 @@
+{
+    "name": "windowsVM1/customScript1",
+    "type": "Microsoft.Compute/virtualMachines/extensions",
+    "apiVersion": "2018-06-01",
+    "location": "[resourceGroup().location]",
+    "tags": {
+        "displayName": "customScript1 for Windows VM"
+    },
+    "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines', 'windowsVM1')]"
+    ],
+    "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "CustomScriptExtension",
+        "typeHandlerVersion": "1.4",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+            "fileUris": [
+                "[concat('artifactsLocation', '/scripts/customScript.ps1', 'artifactsLocationSasToken')]"
+            ],
+            "commandToExecute": "powershell -ExecutionPolicy Bypass -file customScript.ps1"
+        }
+    }
+}
